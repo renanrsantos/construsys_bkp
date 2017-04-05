@@ -1,8 +1,5 @@
-<<<<<<< HEAD
-=======
 <!DOCTYPE html>
 
->>>>>>> origin/master
 @extends('layouts.app')
 
     @section('main-menu')

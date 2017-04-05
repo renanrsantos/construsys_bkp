@@ -22,7 +22,7 @@ class HomeController extends Controller{
         if(Auth::check()){
             return Redirect::to($this->entidade.'/home');
         } else {
-            return view('login');
+            return self::view('login');
         }
     }
     
@@ -53,7 +53,7 @@ class HomeController extends Controller{
     }
     
     public function home(){
-        return view('home');
+        return self::view('home');
     }
 
     protected function getColumns() {

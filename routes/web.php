@@ -38,23 +38,23 @@ function moduloEntidadeAtivo($entidade,$modulo){
 
 function processa(Request $request,$entidade,$modulo,$rotina='',$acao = 'index'){
     if(!Auth::check()){
-        return view('login');
+        return Controller::view('login');
     }
     $controller = getController($request, $entidade, $modulo, $rotina);
     if(!$controller){
-        return view('home')->withErrors(["Página [$modulo.$rotina] não encontrada."]);
+        return Controller::view('home')->withErrors(["Página [$modulo.$rotina] não encontrada."]);
     }
     if(!moduloEntidadeAtivo($entidade, $modulo)){
-        return view('home')->withErrors(['Módulo '. ucfirst($modulo).' não disponível para esta empresa.']);
+        return Redirect::to($entidade.'/home')->withErrors(['Módulo '. ucfirst($modulo).' não disponível para esta empresa.']);
     }
     if(!method_exists($controller, $acao)){
-        return view('home')->withErrors(["Ação [$acao] não disponível."]);
+        return Controller::view('home')->withErrors(["Ação [$acao] não disponível."]);
     }
     return $controller->callAction($acao, $parameters = array('request'=>$request));
 }
 Route::get('/', function () {   
     $identidade = 1;
-    return view('welcome',compact('identidade'));
+    return Controller::view('welcome',compact('identidade'));
 });
 
 
@@ -69,7 +69,7 @@ Route::get('{entidade}/home' , array('uses' => 'HomeController@home'));
 Route::get('{entidade}/modulo/{modulo}/rotina/{rotina}/{acao?}', 
     function(Request $request,$entidade,$modulo,$rotina,$acao = 'index'){
         if(($acao != 'index') && ($acao != 'novo')){
-            return view('home')->withErrors(['Não editar url, utilize as rotinas do sistema.']);
+            return Controller::view('home')->withErrors(['Não editar url, utilize as rotinas do sistema.']);
         }
         return processa($request,$entidade,$modulo,$rotina,$acao,'');
     });

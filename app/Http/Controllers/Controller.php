@@ -6,7 +6,8 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use App\Http\Models\Estrutura\ModuloEntidade;
+use App\Http\Models\Cadastros\Entidade;
+use App\Http\Models\Estrutura\Moduloinstalado;
 use App\Http\Models\Estrutura\Modulo;
 use \Illuminate\Support\Facades\Redirect;
 use \Illuminate\Support\Facades\Request;
@@ -27,7 +28,7 @@ abstract class Controller extends BaseController
 
     public static function getModulosEntidade(){
         $identidade = Request::segment(1);
-        return ModuloEntidade::where('identidade',$identidade)->orderBy('idmodulo')->get();
+        return Moduloinstalado::where('identidade',$identidade)->orderBy('idmodulo')->get();
     }
     
     public static function getModuloSelecionado(){
@@ -49,7 +50,7 @@ abstract class Controller extends BaseController
         return $this->model->getKeyName();
     }
     
-    private function getModel() {
+    protected function getModel() {
         if(is_null($this->model)){
             $classModel = $this->getClassModel();
             $this->model = new $classModel();
@@ -71,20 +72,20 @@ abstract class Controller extends BaseController
 
     public function index(){
         if(!$this->rotina){
-            return view('home');
+            return self::view('home');
         }
         $records = $this->getRecords();
         $columns = $this->getColumns();
         $filters = $this->getFilters();
         $btns = $this->getBtns();
-        return view('layouts.table',compact('records','columns','filters','btns'));
+        return self::view('layouts.table',compact('records','columns','filters','btns'));
     }
     
     public function novo(){
         $key = $this->getModel()->getKeyName();
         $record = $this->getModel();
         $record->$key = $this->getModel()->max($key)+1;
-        return view($this->modulo.'.form-'.$this->rotina,compact('record'));
+        return self::view($this->modulo.'.form-'.$this->rotina,compact('record'));
     }
     
     public function processaNovo(){
@@ -95,7 +96,7 @@ abstract class Controller extends BaseController
     public function alterar(){
         $id = $this->request->get('id');
         $record = $this->getModel()->find($id[0]);
-        return view($this->modulo.'.form-'.$this->rotina,compact('record'));
+        return self::view($this->modulo.'.form-'.$this->rotina,compact('record'));
     }
     
     public function processaAlterar(){
@@ -104,5 +105,15 @@ abstract class Controller extends BaseController
         $model->update($this->request->toArray());
         return Redirect::to($this->getUrl());
     
+    }
+    
+    static function view($view = null, $data = [], $mergeData = [])
+    {
+        $data['modulosEntidade'] = self::getModulosEntidade();
+        $data['moduloSelecionado'] = self::getModuloSelecionado();
+        $data['entidadeSelecionada'] = Entidade::find(Request::segment(1));
+        $data['entidades'] = Entidade::where('identidade','<>',Request::segment(1))->get();
+        $data['auth'] = true;
+        return view($view,$data,$mergeData);
     }
 }

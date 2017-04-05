@@ -4,9 +4,5 @@
 <link rel="stylesheet" href="{{URL::asset('css/bootstrap-theme.min.css')}}">
 <link rel="stylesheet" href="{{URL::asset('css/font-awesome.min.css')}}">
 <script src="{{URL::asset('js/jquery-3.1.0.min.js')}}"></script>
-<<<<<<< HEAD
 <script src="{{URL::asset('js/bootstrap.min.js')}}"></script>
 <script src="{{URL::asset('js/comportamento.js')}}"></script>
-=======
-<script src="{{URL::asset('js/bootstrap.min.js')}}"></script>
->>>>>>> origin/master

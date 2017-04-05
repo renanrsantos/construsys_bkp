@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-<<<<<<< HEAD
 <div class="row">
     {{Form::open(array('url'=>Request::url(),'class'=>'form-inline'))}}
         <div class="form-group form-group-sm">
@@ -42,12 +41,12 @@
             </div> 
             <div class="btn-group btn-group-sm">
                 @foreach($btns as $btn)
-                    <button type="button" 
+                    <{{$btn['type']}} type="button" 
                         href="{{$btn['url']}}" 
                         class="btn btn-primary btn-extra {{$btn['type']}}">
                         <i class="fa fa-{{$btn['icon']}}">&nbsp;</i> 
                         {{$btn['label']}}
-                    </button>
+                    </{{$btn['type']}}>
                 @endforeach
             </div>
         </div>
@@ -85,18 +84,6 @@
         </div>
     {{Form::close()}}
 </div>
-=======
-    @section('form-filtro')
-        filtro
-    @show
-
-    @section('table')
-    <table class="table table-striped">
-        <tr>@yield('header')</tr>
-        @yield('record')
-    </table>
-    @show
->>>>>>> origin/master
 @overwrite
 
 

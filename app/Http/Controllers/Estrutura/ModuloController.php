@@ -24,7 +24,7 @@ class ModuloController extends Controller{
 
     protected function getBtns(){
         return [
-                ['label'=>'Módulos Instalados','type'=>'','icon'=>'cogs','url'=>$this->entidade.'/modulo/estrutura/rotina/moduloinstalado'],
+                ['label'=>'Módulos Instalados','type'=>'a','icon'=>'cogs','url'=>url($this->entidade.'/modulo/estrutura/rotina/moduloinstalado')],
 //                ['label'=>'Sub Rotinas','type'=>'btn-single','icon'=>'cogs','url'=>$this->entidade.'/modulo/estrutura/rotina/subrotina'],
             ];
     }

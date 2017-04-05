@@ -24,10 +24,13 @@ class Entidade extends Model{
     }
     
     public function modulosEntidade(){
-        return $this->hasMany(\App\Http\Models\Estrutura\ModuloEntidade::class,'identidade','identidade')->get();
+        return $this->hasMany(\App\Http\Models\Estrutura\Moduloinstalado::class,'identidade','identidade')->get();
     }
     
     public function moduloAtivo($modpath){
+        if($modpath == '/estrutura'){
+            return true;
+        }
         foreach ($this->modulosEntidade() as $moduloEntidade){
             if($moduloEntidade->modulo()->modpath == $modpath){
                 return (bool) $moduloEntidade->mdeativo;

@@ -4,11 +4,6 @@ namespace App\Http\Models\Estrutura;
 
 use \Illuminate\Database\Eloquent\Model;
 
-/**
- * Description of Sistema
- *
- * @author renan
- */
 class Modulo extends Model{
     
     protected $modulo = 'estrutura';

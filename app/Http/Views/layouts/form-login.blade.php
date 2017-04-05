@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-<div style="background-color: #00CCFF">
+<div>
     <div class="col-md-4 col-md-offset-4" style="margin-top: 100px;">
         <div class="panel panel-primary">
             <div class="panel-heading"><h4>Login</h4></div>
@@ -50,35 +49,3 @@
         </div>
     </div>
 </div>
-=======
-<div style="margin-top: 30px"></div>
-{{ Form::open(array('url' => 'login','class'=>'form-inline pull-right','disabled'=>'true')) }}
-    <!-- if there are login errors, show them here -->
-    @if (count($errors) > 0)
-        <ul class="list-group">
-            @foreach ($errors->all() as $error)
-                <li class="list-group-item list-group-item-danger">{{ $error }}</li>
-            @endforeach
-        </ul>
-    @endif
-    {{ Form::hidden('redirect',Request::url())}}
-    <div class="form-group">
-        {{ Form::text('usulogin',
-                    Input::old('usulogin'), 
-                    array('placeholder' => 'Usuário',
-                        'class'=>'form-control',
-                        'required'=>'true')
-                ) 
-        }}
-    </div>
-    <div class="form-group">
-        {{ Form::password('ususenha', array('placeholder'=>'Senha', 'class'=>'form-control','required'=>'true')) }}
-    </div>
-    <div class="form-group checkbox">
-        <label>
-          {{ Form::checkbox('lembrar') }} Lembrar-me
-        </label>
-    </div>
-    {{ Form::button('Entrar&nbsp;<i class="fa fa-sign-in"></i>', array('class' => 'btn btn-success','type'=>'submit')) }}
-{{ Form::close() }}
->>>>>>> origin/master

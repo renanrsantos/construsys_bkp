@@ -8,7 +8,7 @@
             {{Form::text('idmodulo',$record->idmodulo,['class'=>'form-control','required'=>'true','readonly'=>'true'])}}
         </div>
         <div class="col-md-3">
-            <label for="sisnome" class="control-label">Nome</label>
+            <label for="modnome" class="control-label">Nome</label>
             {{Form::text('modnome',$record->modnome,['class'=>'form-control','required'=>'true'])}}
         </div>
     </div>
