@@ -23,7 +23,7 @@ class ModuloinstaladoController extends Controller{
         ];
     }
     protected function getRecords() {
-        return $this->getModel()->where('identidade',$this->entidade)->get();
+        return $this->getModel()->where('identidade',$this->entidade);
     }
 
 }

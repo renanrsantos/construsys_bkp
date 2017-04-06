@@ -139,7 +139,7 @@ $(document).ready(function(){
     });
     $('.btn-excluir').on('click', function(){
         var form = $(this).parent('form');
-        form.action = form.action+'/excluir';
+        form.attr('action', form.prop('action') + '/excluir');
         form.submit();
     });
 });

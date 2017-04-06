@@ -11,17 +11,21 @@ use App\Http\Models\Estrutura\Moduloinstalado;
 use App\Http\Models\Estrutura\Modulo;
 use \Illuminate\Support\Facades\Redirect;
 use \Illuminate\Support\Facades\Request;
-
+use Illuminate\Database\Eloquent\Model;
 abstract class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
     protected $sistemasEntidade;
+    /** @var Request */
     public $request;
     public $entidade;
     public $modulo;
     public $rotina;
 //    public $acao;
+    
+    /** @var Model */
     private $model;
+    
     public function __construct() {
         $this->modulosEntidade = self::getModulosEntidade();
     }
@@ -63,7 +67,7 @@ abstract class Controller extends BaseController
     }
     
     protected function getRecords(){
-        return $this->getModel()->orderBy($this->getCamposOrdenacao())->get();
+        return $this->getModel()->orderBy($this->getCamposOrdenacao());
     }
     
     protected function getBtns(){
@@ -74,7 +78,7 @@ abstract class Controller extends BaseController
         if(!$this->rotina){
             return self::view('home');
         }
-        $records = $this->getRecords();
+        $records = $this->getRecords()->get();
         $columns = $this->getColumns();
         $filters = $this->getFilters();
         $btns = $this->getBtns();
@@ -105,6 +109,12 @@ abstract class Controller extends BaseController
         $model->update($this->request->toArray());
         return Redirect::to($this->getUrl());
     
+    }
+    
+    public function excluir(){
+        $ids = $this->request->get('id');
+        $this->model->destroy($ids);
+        return Redirect::to($this->getUrl());
     }
     
     static function view($view = null, $data = [], $mergeData = [])

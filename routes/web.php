@@ -73,6 +73,7 @@ Route::get('{entidade}/modulo/{modulo}/rotina/{rotina}/{acao?}',
         }
         return processa($request,$entidade,$modulo,$rotina,$acao,'');
     });
+    
 Route::get('{entidade}/modulo/{modulo}', 
     function(Request $request,$entidade,$modulo){
         return processa($request,$entidade,$modulo);
